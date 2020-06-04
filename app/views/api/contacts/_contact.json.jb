@@ -7,6 +7,9 @@
   email: contact.email,
   phone_number: contact.country_code,
   bio: contact.bio,
+  latitude: contact.latitude,
+  longitude: contact.longitude,
+  address: contact.address,
   created_at: contact.friendly_created_at,
   updated_at: contact.friendly_updated_at
 }

@@ -18,4 +18,8 @@ class Contact < ApplicationRecord
     result
   end
 
+  def address
+    Geocoder.search([latitude, longitude]).first.address
+  end
+
 end
