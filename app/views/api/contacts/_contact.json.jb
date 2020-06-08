@@ -1,4 +1,4 @@
-{
+contact_hash = {
   id: contact.id,
   first_name: contact.first_name,
   middle_name: contact.middle_name,
@@ -13,3 +13,9 @@
   created_at: contact.friendly_created_at,
   updated_at: contact.friendly_updated_at
 }
+
+if contact.latitude && contact.longitude
+  contact_hash[:address] = contact.address
+end
+
+contact_hash

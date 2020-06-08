@@ -2,6 +2,12 @@ class Api::ContactsController < ApplicationController
   
   def index
     @contacts = Contact.all
+    if params[:name_search]
+      @contacts = @contacts.where("first_name iLIKE ? OR last_name iLIKE ? OR middle_name iLIKe ?" , "%#{params[:name_search]}%", "%#{params[:name_search]}%", "%#{params[:name_search]}%")
+    end
+    if params[:email]
+      @contacts = @contacts.where("email iLIKE ?", "#{params[:email]}")
+    end
     render 'index.json.jb'
   end
 
@@ -24,8 +30,11 @@ class Api::ContactsController < ApplicationController
       latitude: coordinates[0],
       longitude: coordinates[1]
     )
-    @contact.save
-    render 'show.json.jb'
+    if @contact.save
+      render 'show.json.jb'
+    else
+      render json: {errors: @contact.errors.full_messages }, satus: :unprocessable_entity
+    end
   end
 
   def update
@@ -45,8 +54,11 @@ class Api::ContactsController < ApplicationController
     @contact.bio = params[:bio] || @contact.bio
     @contact.latitude = params[:latitude] || @contact.latitude
     @contact.longitude = params[:longitude] || @contact.longitude
-    @contact.save
-    render 'show.json.jb'
+    if @contact.save
+      render 'show.json.jb'
+    else
+      render json: {errors: @contact.errors.full_messages }, satus: :unprocessable_entity
+    end
   end
 
   def destroy
