@@ -25,4 +25,12 @@ class Contact < ApplicationRecord
     Geocoder.search([latitude, longitude]).first.address
   end
 
+  def group_names
+    groups.map { |group| group.name }
+  end
+
+  belongs_to :user
+  has_many :contact_groups
+  has_many :groups, through: :contact_groups
+
 end

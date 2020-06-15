@@ -11,7 +11,8 @@ contact_hash = {
   longitude: contact.longitude,
   address: contact.address,
   created_at: contact.friendly_created_at,
-  updated_at: contact.friendly_updated_at
+  updated_at: contact.friendly_updated_at,
+  groups: contact.group_names
 }
 
 if contact.latitude && contact.longitude
